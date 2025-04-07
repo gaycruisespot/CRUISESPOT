@@ -1,6 +1,13 @@
-// Initialize the map (add the map setup here, if needed)
-const map = L.map('map').setView([51.505, -0.09], 13); // Default view
+// Toggle menu visibility
+document.getElementById('menu-toggle').addEventListener('click', () => {
+  const menu = document.getElementById('menu');
+  menu.classList.toggle('show'); // Toggles the visibility
+});
 
+// Initialize map (with Leaflet or another map library)
+const map = L.map('map').setView([51.505, -0.09], 13); // Default location (change if needed)
+
+// Add tile layer (OpenStreetMap tiles in this example)
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
@@ -17,32 +24,7 @@ if (navigator.geolocation) {
   });
 }
 
-// Toggle menu visibility
-document.getElementById('menu-toggle').addEventListener('click', () => {
-  const menu = document.getElementById('menu');
-  menu.classList.toggle('show'); // Toggles the visibility
-});
-
-// Handle login/signup
-document.getElementById('loginForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-
-  try {
-    await firebase.auth().createUserWithEmailAndPassword(email, password);
-    alert('Signed up and logged in!');
-  } catch (err) {
-    if (err.code === 'auth/email-already-in-use') {
-      await firebase.auth().signInWithEmailAndPassword(email, password);
-      alert('Logged in!');
-    } else {
-      alert(err.message);
-    }
-  }
-});
-
-// Handle refresh location
+// Handle refresh location button click
 document.getElementById('refreshLocationBtn').addEventListener('click', () => {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition((position) => {
