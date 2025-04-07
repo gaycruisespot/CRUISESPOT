@@ -50,3 +50,19 @@ button {
 button:hover {
   background: #cc0044;
 }
+
+#refreshLocationBtn {
+  background: #ff3366;
+  color: #fff;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+
+#refreshLocationBtn:hover {
+  background: #cc0044;
+}
