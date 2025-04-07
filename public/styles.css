@@ -1,59 +1,101 @@
-body {
+/* Reset some default styles */
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body style */
+body {
   font-family: 'Arial', sans-serif;
-  background: #111;
-  color: #eee;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-  min-height: 100vh;
-  padding: 2rem;
-}
-
-h1 {
-  color: #ff3366;
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-}
-
-p {
-  color: #ccc;
-  margin-bottom: 2rem;
-}
-
-form {
-  background: #222;
-  padding: 1rem 2rem;
-  border-radius: 8px;
-  box-shadow: 0 0 15px #ff336655;
-  margin-bottom: 2rem;
-}
-
-input, textarea, button {
-  display: block;
-  width: 100%;
-  margin-bottom: 1rem;
-  padding: 0.75rem;
-  border: none;
-  border-radius: 4px;
-  background: #333;
-  color: #eee;
-}
-
-button {
-  background: #ff3366;
   color: #fff;
-  cursor: pointer;
-  transition: background 0.3s ease;
+  position: relative;
+  overflow: hidden;  /* Prevent page scroll */
 }
 
-button:hover {
+/* Map container should take the whole screen */
+#map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;  /* Map stays in the background */
+}
+
+/* Main banner with menu button */
+#main-banner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1;  /* Menu is on top of the map */
+}
+
+/* Button to toggle the menu */
+#menu-toggle {
+  background: #ff3366;
+  color: white;
+  border: none;
+  padding: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#menu-toggle:hover {
   background: #cc0044;
 }
 
+/* Hidden menu */
+#menu {
+  display: none;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Show the menu when the "☰ Menu" is clicked */
+#menu.show {
+  display: flex;
+}
+
+/* Styling for form inputs and buttons */
+form input, form button {
+  padding: 1rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  border: none;
+}
+
+form input {
+  width: 200px;
+}
+
+form button {
+  background: #ff3366;
+  color: white;
+  cursor: pointer;
+}
+
+form button:hover {
+  background: #cc0044;
+}
+
+/* Button styling for Refresh */
 #refreshLocationBtn {
   background: #ff3366;
-  color: #fff;
+  color: white;
   border: none;
   padding: 1rem 2rem;
   font-size: 1.2rem;
