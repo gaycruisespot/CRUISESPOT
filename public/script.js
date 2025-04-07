@@ -1,3 +1,4 @@
+// Initialize the map
 const map = L.map('map').setView([51.505, -0.09], 13); // Default view
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -42,5 +43,30 @@ document.getElementById('refreshLocationBtn').addEventListener('click', () => {
     }, () => {
       console.warn('Location access denied.');
     });
+  }
+});
+
+// Toggle menu visibility
+document.getElementById('menu-toggle').addEventListener('click', () => {
+  const menu = document.getElementById('menu');
+  menu.classList.toggle('show');
+});
+
+// Handle login/signup
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+
+  try {
+    await firebase.auth().createUserWithEmailAndPassword(email, password);
+    alert('Signed up and logged in!');
+  } catch (err) {
+    if (err.code === 'auth/email-already-in-use') {
+      await firebase.auth().signInWithEmailAndPassword(email, password);
+      alert('Logged in!');
+    } else {
+      alert(err.message);
+    }
   }
 });
