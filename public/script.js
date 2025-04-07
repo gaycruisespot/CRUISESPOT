@@ -4,14 +4,24 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
-// Try to get user location
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition((position) => {
-    const lat = position.coords.latitude;
-    const lon = position.coords.longitude;
-    map.setView([lat, lon], 15);
-    L.marker([lat, lon]).addTo(map).bindPopup("You are here").openPopup();
-  }, () => {
-    console.warn('Location access denied.');
-  });
+// Check if there's a saved location in localStorage
+const savedLocation = JSON.parse(localStorage.getItem('userLocation'));
+if (savedLocation) {
+  map.setView([savedLocation.lat, savedLocation.lon], 15);
+  L.marker([savedLocation.lat, savedLocation.lon]).addTo(map).bindPopup("You are here").openPopup();
+} else {
+  // If no saved location, get current location
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      map.setView([lat, lon], 15);
+      L.marker([lat, lon]).addTo(map).bindPopup("You are here").openPopup();
+
+      // Save the location in localStorage
+      localStorage.setItem('userLocation', JSON.stringify({ lat, lon }));
+    }, () => {
+      console.warn('Location access denied.');
+    });
+  }
 }
