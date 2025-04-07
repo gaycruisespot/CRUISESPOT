@@ -25,3 +25,22 @@ if (savedLocation) {
     });
   }
 }
+
+// Add event listener for refresh location button
+document.getElementById('refreshLocationBtn').addEventListener('click', () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+
+      // Recenter the map to the new location
+      map.setView([lat, lon], 15);
+      L.marker([lat, lon]).addTo(map).bindPopup("You are here").openPopup();
+
+      // Optionally update the saved location in localStorage
+      localStorage.setItem('userLocation', JSON.stringify({ lat, lon }));
+    }, () => {
+      console.warn('Location access denied.');
+    });
+  }
+});
